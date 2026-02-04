@@ -1,0 +1,8 @@
+{
+  "@@locale": "ko",
+  "appTitle": "앱",
+  "helloBoilerplate": "안녕하세요, 보일러플레이트!",
+  "settings": "설정",
+  "termsOfUse": "이용약관",
+  "privacyPolicy": "개인정보처리방침"
+}

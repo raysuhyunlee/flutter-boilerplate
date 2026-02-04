@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appTitle": "App",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "helloBoilerplate": "Hello, Boilerplate!",
+  "@helloBoilerplate": {
+    "description": "Greeting message on the home screen"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "termsOfUse": "Terms of Use",
+  "@termsOfUse": {
+    "description": "Terms of use menu item"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Privacy policy menu item"
+  }
+}
