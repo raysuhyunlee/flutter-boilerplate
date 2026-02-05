@@ -115,5 +115,9 @@ version: x.y.z+[version_code] # increment the version code
 ```
 
 ```sh
-. scripts/build.sh
+# android
+./scripts/build.sh
+
+# ios
+flutter build ipa
 ```
