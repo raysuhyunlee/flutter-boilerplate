@@ -109,6 +109,9 @@ flutter pub run import_sorter:main
 
 ### Release Build
 
+Create a file named `key.properties` under `app/android/`.
+Refer to the example file.
+
 ```yaml
 # pubspec.yaml
 version: x.y.z+[version_code] # increment the version code
@@ -116,7 +119,8 @@ version: x.y.z+[version_code] # increment the version code
 
 ```sh
 # android
-./scripts/build.sh
+flutter build appbundle
+# build/app/outputs/bundle/release/app-release.aab
 
 # ios
 flutter build ipa
