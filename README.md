@@ -2,6 +2,25 @@
 
 A Flutter boilerplate pre-configured with Firebase Analytics, Crashlytics, and DI (GetIt).
 
+## Project Structure
+
+```
+├── analytics/   # App analytics reports and data
+├── docs/        # Competitive analysis, planning documents
+├── design/      # Design assets, mockups, screenshots
+│   ├── mockups/
+│   └── screenshots/
+├── app/         # Flutter source code
+│   ├── lib/
+│   ├── test/
+│   ├── android/
+│   ├── ios/
+│   └── ...
+└── CLAUDE.md
+```
+
+> **Note:** All Flutter CLI commands (`flutter run`, `flutter test`, etc.) must be run inside the `app/` directory.
+
 ## Features
 
 - Firebase Analytics / Crashlytics
@@ -16,7 +35,7 @@ A Flutter boilerplate pre-configured with Firebase Analytics, Crashlytics, and D
 
 ```sh
 git clone <repo-url> my_app
-cd my_app
+cd my_app/app
 ```
 
 Run the rename script to change the package name and app display name.
@@ -47,15 +66,16 @@ Create a Firebase project, then generate config files using FlutterFire CLI.
 # Install FlutterFire CLI (one-time)
 dart pub global activate flutterfire_cli
 
-# Generate Firebase config files
+# Generate Firebase config files (run inside app/)
+cd app
 flutterfire configure
 ```
 
 This command auto-generates the following files:
-- `lib/firebase_options.dart`
-- `android/app/google-services.json`
-- `ios/Runner/GoogleService-Info.plist`
-- `ios/firebase_app_id_file.json`
+- `app/lib/firebase_options.dart`
+- `app/android/app/google-services.json`
+- `app/ios/Runner/GoogleService-Info.plist`
+- `app/ios/firebase_app_id_file.json`
 
 ### 3. Android Signing Key
 
@@ -65,10 +85,10 @@ Generate a keystore for release builds. (Skip if you already have one.)
 keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
 ```
 
-Copy `android/key.properties.example` to `android/key.properties` and fill in your values.
+Copy `app/android/key.properties.example` to `app/android/key.properties` and fill in your values.
 
 ```sh
-cp android/key.properties.example android/key.properties
+cp app/android/key.properties.example app/android/key.properties
 ```
 
 ```properties
@@ -81,18 +101,22 @@ storeFile=/path/to/your/upload-keystore.jks
 ### 4. Install Dependencies and Run
 
 ```sh
+cd app
 flutter pub get
 flutter run
 ```
 
 ### 5. Change App Icon
 
-Replace `assets/app_icon.png` with your icon, then generate.
+Replace `app/assets/app_icon.png` with your icon, then generate.
 ```sh
+cd app
 dart run flutter_launcher_icons
 ```
 
 ## Frequently Used Commands
+
+All commands below should be run from the `app/` directory.
 
 ### Running
 

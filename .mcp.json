@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "google-analytics": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "analytics-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/Users/ray/.config/gcloud/application_default_credentials.json",
+        "GOOGLE_PROJECT_ID": "{YOUR PROJECT ID}"
+      }
+    }
+  }
+}
