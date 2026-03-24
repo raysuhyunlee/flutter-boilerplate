@@ -12,6 +12,8 @@ import 'package:get_it/get_it.dart';
 // Project imports:
 import 'package:flutter_boilerplate/app/app.dart';
 import 'package:flutter_boilerplate/app/dependencies.dart';
+import 'package:flutter_boilerplate/domain/device/device_id_service.dart';
+import 'package:flutter_boilerplate/domain/event/event_service.dart';
 import 'package:flutter_boilerplate/domain/subscription/subscription_repository.dart';
 import 'package:flutter_boilerplate/firebase_options.dart';
 
@@ -35,6 +37,14 @@ void main() async {
 /// Non-blocking initialisation of services that don't need to be ready
 /// before the first frame (e.g. RevenueCat).
 void _initializeInBackground() {
+  final deviceIdService = GetIt.instance<DeviceIdService>();
+  deviceIdService.getOrCreateDeviceId().then((id) {
+    FirebaseCrashlytics.instance.setUserIdentifier(id);
+  });
+
+  final eventService = GetIt.instance<EventService>();
+  eventService.initialize();
+
   final subscriptionRepo = GetIt.instance<SubscriptionRepository>();
   subscriptionRepo.initialize();
 }

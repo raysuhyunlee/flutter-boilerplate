@@ -3,21 +3,54 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:flutter_boilerplate/domain/device/device_id_service.dart';
 import 'package:flutter_boilerplate/domain/event/event_service.dart';
 
 class MockFirebaseAnalytics extends Mock implements FirebaseAnalytics {}
 
 class MockLogger extends Mock implements Logger {}
 
+class MockDeviceIdService extends Mock implements DeviceIdService {}
+
 void main() {
   late EventService sut;
   late MockFirebaseAnalytics mockAnalytics;
   late MockLogger mockLogger;
+  late MockDeviceIdService mockDeviceIdService;
 
   setUp(() {
     mockAnalytics = MockFirebaseAnalytics();
     mockLogger = MockLogger();
-    sut = EventService(logger: mockLogger, analytics: mockAnalytics);
+    mockDeviceIdService = MockDeviceIdService();
+    sut = EventService(
+      logger: mockLogger,
+      analytics: mockAnalytics,
+      deviceIdService: mockDeviceIdService,
+    );
+  });
+
+  group('initialize', () {
+    test('should_set_analytics_user_id_with_device_id', () async {
+      when(() => mockDeviceIdService.getOrCreateDeviceId())
+          .thenAnswer((_) async => 'test-device-id');
+      when(() => mockAnalytics.setUserId(id: any(named: 'id')))
+          .thenAnswer((_) async {});
+
+      await sut.initialize();
+
+      verify(() => mockAnalytics.setUserId(id: 'test-device-id')).called(1);
+    });
+
+    test('should_request_device_id_from_device_id_service', () async {
+      when(() => mockDeviceIdService.getOrCreateDeviceId())
+          .thenAnswer((_) async => 'abc-123');
+      when(() => mockAnalytics.setUserId(id: any(named: 'id')))
+          .thenAnswer((_) async {});
+
+      await sut.initialize();
+
+      verify(() => mockDeviceIdService.getOrCreateDeviceId()).called(1);
+    });
   });
 
   group('publish', () {

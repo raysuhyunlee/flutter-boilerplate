@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 // Project imports:
+import 'package:flutter_boilerplate/domain/device/device_id_service.dart';
 import 'package:flutter_boilerplate/domain/event/event_service.dart';
 import 'package:flutter_boilerplate/domain/database/local_database.dart';
 import 'package:flutter_boilerplate/domain/session/session_service.dart';
@@ -29,11 +30,16 @@ void setupDependencies() {
 
   getIt.registerSingleton<LocalDatabase>(LocalDatabase());
 
-  getIt.registerSingleton<EventService>(
-    EventService(logger: getIt<Logger>()),
-  );
-
   getIt.registerSingleton<SessionService>(SessionService());
+
+  getIt.registerSingleton<DeviceIdService>(DeviceIdService());
+
+  getIt.registerSingleton<EventService>(
+    EventService(
+      logger: getIt<Logger>(),
+      deviceIdService: getIt<DeviceIdService>(),
+    ),
+  );
 
   getIt.registerSingleton<PurchasesClient>(RevenueCatPurchasesClient());
 
