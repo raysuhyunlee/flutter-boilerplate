@@ -5,6 +5,8 @@ import 'package:logger/logger.dart';
 // Project imports:
 import 'package:flutter_boilerplate/domain/event/event_service.dart';
 import 'package:flutter_boilerplate/domain/database/local_database.dart';
+import 'package:flutter_boilerplate/domain/session/session_service.dart';
+import 'package:flutter_boilerplate/domain/subscription/subscription_repository.dart';
 import 'package:flutter_boilerplate/utils/crashlytics_log_output.dart';
 
 final getIt = GetIt.instance;
@@ -28,5 +30,14 @@ void setupDependencies() {
 
   getIt.registerSingleton<EventService>(
     EventService(logger: getIt<Logger>()),
+  );
+
+  getIt.registerSingleton<SessionService>(SessionService());
+
+  getIt.registerSingleton<SubscriptionRepository>(
+    SubscriptionRepository(
+      logger: getIt<Logger>(),
+      sessionService: getIt<SessionService>(),
+    ),
   );
 }

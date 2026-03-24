@@ -48,6 +48,13 @@ dependencies:
   flutter_svg: ^2.0.10+1
   url_launcher: ^6.2.4
 
+  # Subscription & payments
+  purchases_flutter: ^8.0.0
+
+  # Settings utilities
+  in_app_review: ^2.0.9
+  share_plus: ^10.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

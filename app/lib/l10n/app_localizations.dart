@@ -127,6 +127,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyPolicy;
+
+  /// Other section label in settings
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get settingsOther;
+
+  /// Review app button in settings
+  ///
+  /// In en, this message translates to:
+  /// **'Leave a Review'**
+  String get settingsReview;
+
+  /// Share app button in settings
+  ///
+  /// In en, this message translates to:
+  /// **'Share with Friends'**
+  String get settingsShare;
+
+  /// Next button on onboarding pages
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// Start button on last onboarding page without permissions
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get onboardingStart;
+
+  /// CTA on last onboarding page requesting notification permission
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications & Start'**
+  String get onboardingAllowNotifications;
+
+  /// Skip link on last onboarding page
+  ///
+  /// In en, this message translates to:
+  /// **'Skip notifications'**
+  String get onboardingSkipNotifications;
+
+  /// Default onboarding step 1 title
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get onboardingStep1Title;
+
+  /// Default onboarding step 1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Get started with your new app.'**
+  String get onboardingStep1Description;
+
+  /// Paywall hero title
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock PRO'**
+  String get paywallTitle;
+
+  /// Default paywall feature 1
+  ///
+  /// In en, this message translates to:
+  /// **'Premium features'**
+  String get paywallFeature1;
+
+  /// Default paywall feature 2
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-free experience'**
+  String get paywallFeature2;
+
+  /// Default paywall feature 3
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited access'**
+  String get paywallFeature3;
+
+  /// Trial package card title
+  ///
+  /// In en, this message translates to:
+  /// **'Free Trial'**
+  String get paywallTrialTitle;
+
+  /// Trial package subtitle with price
+  ///
+  /// In en, this message translates to:
+  /// **'Then {price}/month'**
+  String paywallTrialSubtitle(String price);
+
+  /// Badge on trial card
+  ///
+  /// In en, this message translates to:
+  /// **'Free Trial'**
+  String get paywallTrialBadge;
+
+  /// Lifetime package card title
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get paywallLifetimeTitle;
+
+  /// CTA button text for trial package
+  ///
+  /// In en, this message translates to:
+  /// **'Start Free Trial'**
+  String get paywallCtaTrial;
+
+  /// CTA button text for lifetime package
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Now'**
+  String get paywallCtaLifetime;
+
+  /// Restore purchases link in paywall
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get paywallRestore;
+
+  /// Session section title in dev tools
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get devToolsSessionSection;
+
+  /// Session count label in dev tools
+  ///
+  /// In en, this message translates to:
+  /// **'Session Count'**
+  String get devToolsSessionCount;
+
+  /// Status message after updating session count
+  ///
+  /// In en, this message translates to:
+  /// **'Session count set to {count}.'**
+  String devToolsSessionCountUpdated(int count);
+
+  /// Reset section title in dev tools
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get devToolsResetSection;
+
+  /// Reset button label in dev tools
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to First Install State'**
+  String get devToolsResetButton;
+
+  /// Status message after successful reset
+  ///
+  /// In en, this message translates to:
+  /// **'Reset complete.'**
+  String get devToolsResetComplete;
+
+  /// Error prefix in dev tools status
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get devToolsError;
 }
 
 class _AppLocalizationsDelegate

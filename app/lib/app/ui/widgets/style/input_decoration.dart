@@ -15,7 +15,7 @@ class TidyInputDecoration extends InputDecoration {
               borderSide: BorderSide(),
               borderRadius: BorderRadius.all(Radius.circular(15))),
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.lightGray),
+              borderSide: BorderSide(color: AppColors.border),
               borderRadius: BorderRadius.all(Radius.circular(15))),
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.primary),
