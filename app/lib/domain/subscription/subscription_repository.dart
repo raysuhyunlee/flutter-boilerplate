@@ -1,9 +1,11 @@
 // Package imports:
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 // Project imports:
 import 'package:flutter_boilerplate/domain/session/session_service.dart';
+import 'package:flutter_boilerplate/domain/subscription/purchases_client.dart';
 import 'package:flutter_boilerplate/resources/app_config.dart';
 
 /// Manages RevenueCat subscription state, purchases, and paywall trigger logic.
@@ -13,16 +15,23 @@ import 'package:flutter_boilerplate/resources/app_config.dart';
 class SubscriptionRepository {
   final Logger _logger;
   final SessionService _sessionService;
+  final PurchasesClient _purchasesClient;
   bool _initialized = false;
   final List<void Function(CustomerInfo)> _pendingListeners = [];
 
   SubscriptionRepository({
     required Logger logger,
     required SessionService sessionService,
+    required PurchasesClient purchasesClient,
   })  : _logger = logger,
-        _sessionService = sessionService;
+        _sessionService = sessionService,
+        _purchasesClient = purchasesClient;
 
   bool get isInitialized => _initialized;
+
+  @visibleForTesting
+  // ignore: avoid_setters_without_getters
+  set initializedForTesting(bool value) => _initialized = value;
 
   Future<void> initialize() async {
     if (AppConfig.revenueCatApiKey.isEmpty) {
@@ -30,13 +39,13 @@ class SubscriptionRepository {
       return;
     }
     try {
-      await Purchases.setLogLevel(LogLevel.debug);
+      await _purchasesClient.setLogLevel(LogLevel.debug);
       final configuration =
           PurchasesConfiguration(AppConfig.revenueCatApiKey);
-      await Purchases.configure(configuration);
+      await _purchasesClient.configure(configuration);
       _initialized = true;
       for (final listener in _pendingListeners) {
-        Purchases.addCustomerInfoUpdateListener(listener);
+        _purchasesClient.addCustomerInfoUpdateListener(listener);
       }
       _pendingListeners.clear();
     } catch (e, st) {
@@ -47,7 +56,7 @@ class SubscriptionRepository {
   Future<bool> isProUser() async {
     if (!_initialized) return false;
     try {
-      final customerInfo = await Purchases.getCustomerInfo();
+      final customerInfo = await _purchasesClient.getCustomerInfo();
       return customerInfo
               .entitlements.all[AppConfig.revenueCatEntitlementId]?.isActive ??
           false;
@@ -59,12 +68,12 @@ class SubscriptionRepository {
 
   Future<CustomerInfo?> getCustomerInfo() async {
     if (!_initialized) return null;
-    return Purchases.getCustomerInfo();
+    return _purchasesClient.getCustomerInfo();
   }
 
   Future<CustomerInfo?> restorePurchases() async {
     if (!_initialized) return null;
-    return Purchases.restorePurchases();
+    return _purchasesClient.restorePurchases();
   }
 
   void addCustomerInfoListener(void Function(CustomerInfo) listener) {
@@ -72,17 +81,17 @@ class SubscriptionRepository {
       _pendingListeners.add(listener);
       return;
     }
-    Purchases.addCustomerInfoUpdateListener(listener);
+    _purchasesClient.addCustomerInfoUpdateListener(listener);
   }
 
   Future<Offerings?> getOfferings() async {
     if (!_initialized) return null;
-    return Purchases.getOfferings();
+    return _purchasesClient.getOfferings();
   }
 
   Future<CustomerInfo?> purchasePackage(Package package) async {
     if (!_initialized) return null;
-    return Purchases.purchasePackage(package);
+    return _purchasesClient.purchasePackage(package);
   }
 
   /// Evaluates whether to show a paywall based on session count and pro status.

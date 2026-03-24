@@ -4,9 +4,12 @@ import 'package:logger/logger.dart';
 
 class CrashlyticsLogOutput extends LogOutput {
   final Level minLogLevel;
-  final FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance;
+  final FirebaseCrashlytics crashlytics;
 
-  CrashlyticsLogOutput({required this.minLogLevel});
+  CrashlyticsLogOutput({
+    required this.minLogLevel,
+    FirebaseCrashlytics? crashlytics,
+  }) : crashlytics = crashlytics ?? FirebaseCrashlytics.instance;
 
   @override
   void output(OutputEvent event) {

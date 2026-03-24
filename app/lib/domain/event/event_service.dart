@@ -17,9 +17,12 @@ abstract final class Events {
 
 class EventService {
   final Logger logger;
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  final FirebaseAnalytics _analytics;
 
-  EventService({required this.logger});
+  EventService({
+    required this.logger,
+    FirebaseAnalytics? analytics,
+  }) : _analytics = analytics ?? FirebaseAnalytics.instance;
 
   Future<void> publish(String eventType,
       {Map<String, Object>? parameters}) async {
