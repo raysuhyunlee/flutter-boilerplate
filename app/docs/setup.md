@@ -39,7 +39,6 @@ flutterfire configure
 - `app/lib/firebase_options.dart`
 - `app/android/app/google-services.json`
 - `app/ios/Runner/GoogleService-Info.plist`
-- `app/ios/firebase_app_id_file.json`
 
 ## 3. AppConfig 설정
 
