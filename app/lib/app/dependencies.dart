@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 // Project imports:
+import 'package:flutter_boilerplate/app/app_reset_notifier.dart';
 import 'package:flutter_boilerplate/domain/device/device_id_service.dart';
 import 'package:flutter_boilerplate/domain/event/event_service.dart';
 import 'package:flutter_boilerplate/domain/database/local_database.dart';
@@ -31,6 +32,8 @@ void setupDependencies() {
   getIt.registerSingleton<LocalDatabase>(LocalDatabase());
 
   getIt.registerSingleton<SessionService>(SessionService());
+
+  getIt.registerSingleton<AppResetNotifier>(AppResetNotifier());
 
   getIt.registerSingleton<DeviceIdService>(DeviceIdService());
 

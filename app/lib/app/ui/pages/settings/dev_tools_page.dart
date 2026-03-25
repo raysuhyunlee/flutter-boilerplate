@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
+import 'package:flutter_boilerplate/app/app_reset_notifier.dart';
 import 'package:flutter_boilerplate/app/extensions/build_context_extensions.dart';
 import 'package:flutter_boilerplate/app/resources/colors.dart';
 import 'package:flutter_boilerplate/app/resources/sizes.dart';
@@ -24,6 +25,7 @@ class DevToolsPage extends StatefulWidget {
 
 class _DevToolsPageState extends State<DevToolsPage> {
   final _sessionService = GetIt.instance<SessionService>();
+  final _resetNotifier = GetIt.instance<AppResetNotifier>();
   final _logger = GetIt.instance<Logger>();
   String _status = '';
   int _sessionCount = 0;
@@ -62,9 +64,9 @@ class _DevToolsPageState extends State<DevToolsPage> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
+      _resetNotifier.reset();
       if (!mounted) return;
-      setState(
-          () => _status = context.l10n.devToolsResetComplete);
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } catch (e, st) {
       _logger.e('Failed to reset session', error: e, stackTrace: st);
       if (!mounted) return;

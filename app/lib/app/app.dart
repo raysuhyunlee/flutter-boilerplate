@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
+import 'package:flutter_boilerplate/app/app_reset_notifier.dart';
 import 'package:flutter_boilerplate/app/extensions/build_context_extensions.dart';
 import 'package:flutter_boilerplate/app/resources/theme.dart';
 import 'package:flutter_boilerplate/app/ui/pages/onboarding/onboarding_page.dart';
@@ -64,12 +65,24 @@ class _EntryPoint extends StatefulWidget {
 
 class _EntryPointState extends State<_EntryPoint> {
   final _sessionService = GetIt.instance<SessionService>();
+  final _resetNotifier = GetIt.instance<AppResetNotifier>();
   bool? _isFirstLaunch;
 
   @override
   void initState() {
     super.initState();
+    _resetNotifier.addListener(_onAppReset);
     _checkFirstLaunch();
+  }
+
+  @override
+  void dispose() {
+    _resetNotifier.removeListener(_onAppReset);
+    super.dispose();
+  }
+
+  void _onAppReset() {
+    setState(() => _isFirstLaunch = true);
   }
 
   Future<void> _checkFirstLaunch() async {
