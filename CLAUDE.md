@@ -140,7 +140,7 @@ A task is complete only when:
 * `const` everywhere.
 * `ListView.builder`.
 * `compute()` for heavy tasks.
-**Testing:** `cd app && flutter test`, `integration_test`.
+**Testing:** `cd app && flutter test 2>&1 > /tmp/flutter_test_result.txt; echo "EXIT_CODE=$?"`, `integration_test`.
 **A11y:** 4.5:1 contrast, Semantics.
 **Design:** "Wow" factor. Glassmorphism, shadows.
 **i18n:**
